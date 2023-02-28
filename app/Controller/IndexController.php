@@ -29,12 +29,11 @@ class IndexController extends AbstractController
 
     public function info()
     {
-        $id = $this->request->input('id', 1);
-        var_dump($id);
+        $id = (int)$this->request->input('id', 0);
         if ($id > 0) {
-            return $this->success(['info' => 'data info']);
+            return $this->response->success(['info' => 'data info']);
         } else {
-            return $this->fail(500, 'id无效');
+            return $this->response->fail(500, 'id无效');
         }
     }
 }
