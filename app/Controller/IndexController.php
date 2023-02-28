@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use Hyperf\HttpServer\Annotation\AutoController;
+
+#[AutoController]
 class IndexController extends AbstractController
 {
     public function index()
@@ -22,5 +25,16 @@ class IndexController extends AbstractController
             'method' => $method,
             'message' => "Hello {$user}.",
         ];
+    }
+
+    public function info()
+    {
+        $id = $this->request->input('id', 1);
+        var_dump($id);
+        if ($id > 0) {
+            return $this->success(['info' => 'data info']);
+        } else {
+            return $this->fail(500, 'id无效');
+        }
     }
 }
