@@ -8,14 +8,14 @@ use Psr\Container\ContainerInterface;
 
 class Response
 {
-    /*
+    /**
      * @var ContainerInterface
-     * */
+     */
     protected $container;
 
-    /*
+    /**
      * @var ResponseInterface
-     * */
+     */
     protected $response;
 
     public function __construct(ContainerInterface $container)
@@ -39,6 +39,4 @@ class Response
             'message' => $message,
         ]);
     }
-
-
 }

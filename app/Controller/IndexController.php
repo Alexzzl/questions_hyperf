@@ -29,7 +29,7 @@ class IndexController extends AbstractController
 
     public function info()
     {
-        $id = (int)$this->request->input('id', 0);
+        $id = (int) $this->request->input('id', 0);
         if ($id > 0) {
             return $this->response->success(['info' => 'data info']);
         } else {
