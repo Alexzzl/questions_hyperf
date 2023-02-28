@@ -11,6 +11,8 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use App\Service\IndexService;
+use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\AutoController;
 
 #[AutoController]
@@ -27,13 +29,16 @@ class IndexController extends AbstractController
         ];
     }
 
+    /**
+     * @var IndexService
+     */
+    #[Inject]
+    public $indexService;
+
     public function info()
     {
         $id = (int) $this->request->input('id', 0);
-        if ($id > 0) {
-            return $this->response->success(['info' => 'data info']);
-        } else {
-            return $this->response->fail(500, 'id无效');
-        }
+
+        return $this->response->success($this->indexService->info($id));
     }
 }
