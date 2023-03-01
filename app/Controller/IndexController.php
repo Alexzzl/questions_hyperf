@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Service\IndexService;
+use App\Service\Instance\JwtInstance;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\Utils\Coroutine;
@@ -20,42 +21,20 @@ use Hyperf\Context\Context;
 #[AutoController]
 class IndexController extends AbstractController
 {
-    public function index()
-    {
-        $user = $this->request->input('user', 'Hyperf');
-        $method = $this->request->getMethod();
-
-        return [
-            'method' => $method,
-            'message' => "Hello {$user}.",
-        ];
-    }
-
-    /**
-     * @var IndexService
-     */
-    #[Inject]
-    public $indexService;
-
     public function info()
     {
-        return convert_size(memory_get_usage(true));
-//        $id = (int) $this->request->input('id', 0);
-//
-//        return $this->response->success($this->indexService->info($id));
-    }
+        $id = $this->request->input('id');
 
-    public $a;
-    public function test()
-    {
-        $a = $this->request->input('a');
-        Context::set('a', $a);
+        $user = [
+            'id' => $id,
+            'name' => $id . '_' . 'name',
+        ];
+        $instance = JwtInstance::instance();
+        $instance->encode($user);
+
         return [
-            'co_is' => Coroutine::inCoroutine(),
-            'co_id' => Coroutine::id(),
-            'a' => Context::get('a'),
-//            'a' => $a,
-
+            'id' => $instance->id,
+            'user' => $instance->user,
         ];
     }
 }
