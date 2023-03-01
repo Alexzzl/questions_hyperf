@@ -14,6 +14,8 @@ namespace App\Controller;
 use App\Service\IndexService;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\AutoController;
+use Hyperf\Utils\Coroutine;
+use Hyperf\Context\Context;
 
 #[AutoController]
 class IndexController extends AbstractController
@@ -41,5 +43,19 @@ class IndexController extends AbstractController
 //        $id = (int) $this->request->input('id', 0);
 //
 //        return $this->response->success($this->indexService->info($id));
+    }
+
+    public $a;
+    public function test()
+    {
+        $a = $this->request->input('a');
+        Context::set('a', $a);
+        return [
+            'co_is' => Coroutine::inCoroutine(),
+            'co_id' => Coroutine::id(),
+            'a' => Context::get('a'),
+//            'a' => $a,
+
+        ];
     }
 }
