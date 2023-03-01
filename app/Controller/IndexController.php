@@ -17,24 +17,14 @@ use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\Utils\Coroutine;
 use Hyperf\Context\Context;
+use Hyperf\DbConnection\Db;
 
 #[AutoController]
 class IndexController extends AbstractController
 {
     public function info()
     {
-        $id = $this->request->input('id');
-
-        $user = [
-            'id' => $id,
-            'name' => $id . '_' . 'name',
-        ];
-        $instance = JwtInstance::instance();
-        $instance->encode($user);
-
-        return [
-            'id' => $instance->id,
-            'user' => $instance->user,
-        ];
+        $result = Db::select('SELECT * FROM email_code;');
+        return $result;
     }
 }

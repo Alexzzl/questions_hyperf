@@ -18,7 +18,7 @@
         "hyperf/config": "~3.0.0",
         "hyperf/constants": "3.0.*",
         "hyperf/database": "~3.0.0",
-        "hyperf/db-connection": "~3.0.0",
+        "hyperf/db-connection": "3.*",
         "hyperf/framework": "~3.0.0",
         "hyperf/guzzle": "~3.0.0",
         "hyperf/http-server": "~3.0.0",
